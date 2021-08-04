@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name = "viewport" content="device-width", initial-scale="1">
+        <style>
+            *{
+                box-sizing: border-box;
+            }
+            input[type=text], select, textarea {
+                width: 100%
+                padding 12px
+                border 1px solid #ccc
+                border-radius 4px
+                resize vertical
+            }
+
+            label{
+                padding: 10px 10px 10px 0;
+                display: inline-block;
+            }
+
+            input[type="submit"]{
+                background-color: darkgoldenrod;
+                color: black;
+                padding: 12px 20px;
+                border: none;
+                border-radius: 4px;
+                cursor: pointer;
+                float: right;
+            }
+
+            input[type=submit] :hover{
+                background-color: darkcyan;
+            }
+
+            .flex-container{
+                display: flex;
+                align-items: center;
+                
+            }
+
+            .container{
+                border-radius: 4px;
+                background-color: beige;
+                padding : 20px;
+            }
+
+            .col-25 {
+                float: left;
+                width: 25%;
+                margin-top: 6px;
+            }
+            .col-75{
+                float: left;
+                width: 75%;
+                margin-top: 6px;
+            }
+            .row:after{
+                content: "";
+                display: table;
+                clear: both;
+            }
+            @media screen and (max-width: 700px) {
+                .col-25, .col-75, input[type=submit]{
+                    width: 100%;
+                    margin-top: 0;
+                }
+            }
+
+            @import url(https://fonts.googleapis.com/css?family=Lato:400,300,100,700,900);
+/*
+Header style
+*/
+
+h1,
+p,
+a{
+  margin: 0;
+  padding: 0;
+  font-family: 'Lato';
+}
+
+h1 {
+  font-size: 2.8em;
+  padding: 10px 0;
+  font-weight: 800;
+}
+
+p {
+  font-size: 1.1em;
+  font-weight: 100;
+  letter-spacing: 5px;
+}
+
+.header {
+  width: 100%;
+  padding:60px 0;
+  text-align: center;
+  background-image: url(https://3.bp.blogspot.com/-if-PaYDQs5E/W6kJf-zBYKI/AAAAAAAAGaM/ymgHhH8LWiAt4I3f81k8SUhU_7xe3QAbwCPcBGAYYCw/s640/maxresdefault.jpg)
+  ,linear-gradient(to bottom, white, black);
+  background-blend-mode: multiply;
+  color: white;
+}
+
+
+        </style>
+            <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    </head>
+    <!--header-->
+    <section class="header">
+        <h1>view</h1>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+    </section>
+    <body>
+        <div class="container">
+            <form action="generarPDF.php" method="POST">
+
+                <!--Numerode referencia y numero de folio sistema-->
+                <label for="NRef">No. Referencia</label> 
+                <input type="text" id="NRef" name="Numero Ref" required maxlength="21" placeholder="Referencia..."> &emsp;
+                <label for="Nfolio">No. Folio</label> 
+                <input type="text" id="Nfolio" name="Numero Folio" required maxlength="22" placeholder="Folio"> &emsp; <br>
+                <!--date-->
+
+                <input type="date" id="dt" onchange="mydate1();" hidden/>
+                <input type="text" id="ndt"  onclick="mydate();" hidden />
+                <input type="button" Value="Date" onclick="mydate();" /><br>
+
+
+                <!-- datos de quien realiza la puesta a dispocición numero de expediente linea-->
+
+               
+
+                <label for="">Nuero de Expediente</label>
+                <input type="text" id="nexp" name="nexpediente" required maxlength="15" placeholder="# Expediente..."> &emsp; <br>
+
+                 <!-- anexos check box -->
+                 <label class="form-check-label" for="anexoA">Incluir anexo A</label> &emsp;
+                <input type="checkbox" name="anexoA" id="anexoA"  onchange="seleccion(1);">&emsp;
+ 
+                <label class="form-check-label" for="anexoB">Incluir anexo B</label> &emsp;
+                <input type="checkbox" name="anexoB" id="anexoB"   onchange="seleccion(2);">&emsp;
+ 
+                <label class="form-check-label" for="anexoC">Incluir anexo C</label> &emsp;
+                <input type="checkbox" name="anexoC" id="anexoC"   onchange="seleccion(3);">&emsp;
+ 
+                <label class="form-check-label" for="anexoD">Incluir anexo D</label> &emsp;
+                <input type="checkbox" name="anexoD" id="anexoD"   onchange="seleccion(4);">&emsp;
+ 
+                <label class="form-check-label" for="anexoE">Incluir anexo E</label> &emsp;
+                <input type="checkbox" name="anexoE" id="anexoE"   onchange="seleccion(5);">&emsp;
+ 
+                <label class="form-check-label" for="anexoF">Incluir anexo F</label> &emsp;
+                <input type="checkbox" name="anexoF" id="anexoF"   onchange="seleccion(6);">&emsp;
+ 
+                <label class="form-check-label" for="anexoG">Incluir anexo G</label> &emsp;
+                <input type="checkbox" name="anexoG" id="anexoG"   onchange="seleccion(7);">&emsp;<br><br>
+                 
+                <label class="form-check-label" for="anexoH">Anexar Documentacion</label> &emsp;
+                <input type="checkbox" name="anexoH" id="anexoH"   onchange="seleccion(8);">&emsp;<br>
+                 <br>
+                 <br>
+
+                 <!-- anexos documentacion complementaría -->
+                 <div id="anexo8">
+                <center><p>Documentacion</p></center>
+                
+                
+            <label class="form-check-label" for="anexoH">Fotografias</label> 
+              <input type="checkbox" name="anexoH" id="anexoH" value="1">&emsp;
+
+              <label class="form-check-label" for="anexoH">Audio</label> 
+              <input type="checkbox" name="anexoH" id="anexoH" value="2">&emsp;
+
+              <label class="form-check-label" for="anexoH">Videos</label> 
+              <input type="checkbox" name="anexoH" id="anexoH" value="3">&emsp;
+
+              <label class="form-check-label" for="anexoH">Certificado Medico</label> 
+              <input type="checkbox" name="anexoH" id="anexoH" value="4">&emsp; 
+
+              <label class="form-check-label" for="anexoH">Otros</label> 
+              <input type="checkbox" name="anexoH" id="anexoH" value="5">  &emsp;   
+
+                  
+                    <label for="linea22">(¿Cuál?)</label>
+                    <input type="text" name="linea22" id="linea22"  maxlength="20" >
+                  
+                 <br>
+                 <br>
+                 <br>
+
+                 <!-- datos de quien realiza la puesta a dispocición linea-->
+
+                <label for="fname">Nombre</label> 
+                <input type="text" id="fname" name="nombre" placeholder="Escribe tu nombre(s)..."> &emsp;
+
+                <label for="Plname">Apellido Paterno</label> 
+                <input type="text" id="Plname" name="lastname_p" placeholder="Apellido Paterno.."> &emsp;
+
+                <label for="Mlname">Apellido Materno</label> 
+                <input type="text" id="Mlname" name="lastname_m" placeholder="Apellido Materno.."> &emsp;
+
+                <label for="adscrip">Adscripcion</label> 
+                <input type="text" id="adscip" name="adscipcion" placeholder="Adscripcion..."> &emsp;
+
+                <label for="cg">Cargo/Grado</label> 
+                <input type="text" id="cg" name="cargo-grado" placeholder="cargo/grado.."> &emsp; <br>
+                <br>
+                <br>
+                <br>
+
+                <!--Anexa documentacion complementaria-->
+            
+
+            <!--Insertar campos de formulario-->
+            <p>Apartado 1.1 Fecha y hora de la puesta a disposici&oacuten</p>
+            
+               <label for="linea1">Fecha</label>
+               <input type="date" name="linea1" id="linea1">
+             
+               <label for="linea2">Hr</label>
+               <input type="time" name="linea2" id="linea2">
+             <br>
+               <label for="linea3"># Expediente</label>
+               <input type="text" name="linea3" id="linea3" class="form-control" maxlength=15 >
+               <br>
+               <br>
+               
+
+                   <!-- Fiscal autoridad que recibe la puesta a dispocición -->
+
+                   
+                    <label for="linea4">Primer apellido</label>
+                    <input type="text" name="linea4" id="linea4">
+                  
+                    <label for="linea5">Segundo apellido</label>
+                    <input type="text" name="linea5" id="linea5">
+                 
+                    <label for="linea6">Nombre(s)</label>
+                    <input type="text" name="linea6" id="linea6">
+                    <br>
+                      
+                    <label for="linea7">Adscripci&oacuten</label>
+                    <input type="text" name="linea7" id="linea7" class="form-control" >
+                        
+                    <label for="linea8">Cargo/Grado</label>
+                    <input type="text" name="linea8" id="linea8" class="form-control" >
+                <br>
+                <br>
+                <br>
+
+                <p>Fiscal/Autoridad que recibe la puesta a disposicion</p>
+          
+            <label for="linea9">Primer apellido</label>
+            <input type="text" name="linea9" id="linea9">
+         
+            <label for="linea10">Segundo apellido</label>
+            <input type="text" name="linea10" id="linea10">
+          
+          
+            <label for="linea11">Nombre(s)</label>
+            <input type="text" name="linea11" id="linea11">
+            <br>
+          
+            <label for="linea12">Fiscalia/Autoridad</label>
+            <input type="text" name="linea12" id="linea12" class="form-control" >
+          
+          
+            <label for="linea13">Adscripci&oacuten</label>
+            <input type="text" name="linea13" id="linea13" class="form-control" >
+          
+         
+            <label for="linea14">Cargo</label>
+            <input type="text" name="linea14" id="linea14" class="form-control" >
+            <br>
+            <br>
+                
+                <div id="anexo1">
+                    <center><p>ANEXO A</p></center>
+                    
+                    <label for="linea15">Detenciones</label>
+                    <input type="text" name="linea15" id="linea15"  maxlength="3" > &emsp;
+                   
+                        
+                    <label for="lineaa1">escribe primeroa</label>
+                    <input type="text" name="lineaa1" id="lineaa1"> &emsp;
+                        
+                    <label for="lineaa2">escribe segundoa</label>
+                    <input type="text" name="lineaa2" id="lineaa2"> &emsp;
+                          
+                      </div>
+                      <br>
+        
+                      
+        
+                      <div id="anexo2">
+                        <center><p>ANEXO B</p></center>
+                        
+                        <label for="linea16">Informe del uso de la fuerza</label>
+                        <input type="text" name="linea16" id="linea16" maxlength="3" > 
+                       
+                        <label for="lineab1">Escribe primerob</label>
+                        <input type="text" name="lineab1" id="lineab1"> &emsp;
+                        
+                        
+                        <label for="lineab2">Escribe segundob</label>
+                        <input type="text" name="lineab2" id="lineab2"> &emsp;
+                          
+                      </div><br>
+        
+        
+                      <div id="anexo3">
+                        <center><p>ANEXO C</p></center>
+                        
+                        <label for="linea17">Inspeccion de vehiculo</label>
+                        <input type="text" name="linea17" id="linea17" maxlength="3" > 
+                        
+                        <label for="lineac1">escribe primeroc</label>
+                        <input type="text" name="lineac1" id="lineac1"> &emsp;
+                        
+                        <label for="lineac2">escribe segundoc</label>
+                        <input type="text" name="lineac2" id="lineac2"> &emsp;
+                          
+                      </div><br>
+        
+        
+                      <div id="anexo4">
+                        <center><p>ANEXO D</p></center>
+                        
+                          <label for="linea18">Inventario de armas y objetos</label>
+                          <input type="text" name="linea18" id="linea18" maxlength="3" > 
+                        
+                          <label for="linead1">escribe primerod</label>
+                          <input type="text" name="linead1" id="linead1"> &emsp;
+                        
+                        
+                            <label for="linead2">escribe segundod</label>
+                            <input type="text" name="linead2" id="linead2" > &emsp;
+                          
+                      </div><br>
+        
+        
+                      <div id="anexo5">
+                        <center><p>ANEXO E</p></center>
+                        
+                        <label for="linea19">Entrevistas</label>
+                        <input type="text" name="linea19" id="linea19"  maxlength="3"> 
+                        
+                        <label for="lineae1">escribe primeroe</label>
+                        <input type="text" name="lineae1" id="lineae1"> &emsp;
+                        
+                        <label for="lineae2">escribe segundoe</label>
+                        <input type="text" name="lineae2" id="lineae2"> &emsp;
+                          
+                      </div><br>
+        
+                      <div id="anexo6">
+                        <center><p>ANEXO F</p></center>
+                        
+                        <label for="linea20">Entrega - recepci&oacuten del lugar de la intervenci&oacuten</label>
+                        <input type="text" name="linea20" id="linea20" maxlength="3" > 
+                        
+                        <label for="lineaf1">escribe primerof</label>
+                        <input type="text" name="lineaf1" id="lineaf1"> &emsp;
+                        
+                        <label for="lineaf2">escribe segundof</label>
+                        <input type="text" name="lineaf2" id="lineaf2"> &emsp;
+                          
+                      </div><br>
+        
+                      <div id="anexo7">
+                        <center><p>ANEXO G</p></center>
+                        
+                          <label for="linea21">Continuaci&oacuten de la narrativa de los echos y/o entrevista</label>
+                          <input type="text" name="linea21" id="linea21" maxlength="3" > 
+                        
+                          <label for="lineag1">escribe primerog</label>
+                          <input type="text" name="lineag1" id="lineag1"> &emsp;
+                        
+                            <label for="lineag2">escribe segundog</label>
+                            <input type="text" name="lineag2" id="lineag2" > &emsp;
+                        
+                      </div>    
+
+                
+
+                <!--boton submit-->
+
+                  <div class="row">
+                      <input type="submit" value="submit">
+                  </div>
+            </form>
+
+        <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script>
+      $(document).ready(function(){
+        seleccion(1);
+        seleccion(2);
+        seleccion(3);
+        seleccion(4);
+        seleccion(5);
+        seleccion(6);
+        seleccion(7);
+        seleccion(8);
+      })
+      function seleccion(numero, valor){
+        switch(numero){
+          case 1:
+            if(!$("#anexoA").is(':checked')){
+              $("#anexo1").hide()
+            }
+            else{
+              $("#anexo1").show()
+            }
+            break;
+          case 2:
+            if(!$("#anexoB").is(':checked')){
+              $("#anexo2").hide()
+            }
+            else{
+              $("#anexo2").show()
+            }
+            break;
+          case 3:
+            if(!$("#anexoC").is(':checked')){
+              $("#anexo3").hide()
+            }
+            else{
+              $("#anexo3").show()
+            }
+            break;
+            case 4:
+            if(!$("#anexoD").is(':checked')){
+              $("#anexo4").hide()
+            }
+            else{
+              $("#anexo4").show()
+            }
+            break;
+            case 5:
+            if(!$("#anexoE").is(':checked')){
+              $("#anexo5").hide()
+            }
+            else{
+              $("#anexo5").show()
+            }
+            break;
+            case 6:
+            if(!$("#anexoF").is(':checked')){
+              $("#anexo6").hide()
+            }
+            else{
+              $("#anexo6").show()
+            }
+            break;
+            case 7:
+            if(!$("#anexoG").is(':checked')){
+              $("#anexo7").hide()
+            }
+            else{
+              $("#anexo7").show()
+            }
+            break;
+
+            case 8:
+            if(!$("#anexoH").is(':checked')){
+              $("#anexo8").hide()
+            }
+            else{
+              $("#anexo8").show()
+            }
+            break;
+        }
+          
+      }
+    </script>
+  </body>
+</html>
